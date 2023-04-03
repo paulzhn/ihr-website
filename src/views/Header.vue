@@ -15,14 +15,8 @@
             <q-btn flat v-if="item.options == null" :label="$t(item.entryName)" :to="{ name: item.routeName }" />
             <q-btn-dropdown flat :label="$t(item.entryName)" v-else menu-anchor="bottom left" menu-self="top left">
               <q-list class="rounded-borders text-white bg-primary" bordered separator padding>
-                <q-item
-                  clickable
-                  v-close-popup
-                  :key="option.entryName"
-                  v-for="option in item.options"
-                  :to="{ name: option.routeName }"
-                  active-class="text-grey"
-                >
+                <q-item clickable v-close-popup :key="option.entryName" v-for="option in item.options"
+                  :to="{ name: option.routeName }" active-class="text-grey">
                   <q-item-section>
                     <q-item-label class="text-bold">{{ $t(option.entryName) }}</q-item-label>
                     <q-item-label class="text-grey" caption lines="2">{{ $t(option.summary) }}</q-item-label>
@@ -157,7 +151,7 @@ export default {
     expandSidebar() {
       this.sidebarOpened = !this.sidebarOpened
     },
-    
+
     logout() {
       this.$ihr_api.userLogout(
         res => {

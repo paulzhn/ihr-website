@@ -21,6 +21,7 @@ import Documentation from '@/views/Documentation'
 import Bgplay from '@/components/ripe/Bgplay'
 import PageNotFound from '@/views/PageNotFound'
 import Register from '@/views/user/Register'
+import Select from '@/views/Select'
 
 Vue.use(Router)
 
@@ -250,6 +251,16 @@ export default new Router({
         default: MetisDeployment,
       },
       meta: { title: 'Metis Deployment - IHR' },
+    },
+    {
+      name: 'select',
+      path: `${routerBase}select`,
+      components: {
+        header: Header,
+        footer: Footer,
+        default: Select,
+      },
+      meta: { title: 'Select - IHR' },
     },
 
     // Widgets

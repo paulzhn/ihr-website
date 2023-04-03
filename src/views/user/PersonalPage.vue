@@ -3,41 +3,21 @@
     <div v-if="!$ihr_api.authenticated" class="shadow-2 IHR_not-access">
       <h2>{{ $t("personalPage.goAway") }}</h2>
       <div class="row justify-around">
-        <q-btn
-          color="secondary"
-          class="col-3"
-          @click="$router.push({ name: 'sign_up' })"
-          >{{ $t("header.signUp") }}</q-btn
-        >
-        <q-btn
-          color="secondary"
-          class="col-3"
-          @click="$router.push({ name: 'home' })"
-          >homepage</q-btn
-        >
+        <q-btn color="secondary" class="col-3" @click="$router.push({ name: 'sign_up' })">{{ $t("header.signUp")
+        }}</q-btn>
+        <q-btn color="secondary" class="col-3" @click="$router.push({ name: 'home' })">homepage</q-btn>
       </div>
     </div>
     <div v-else>
-      <q-drawer
-        :value="showSidebar"
-        side="left"
-        bordered
-        content-class="IHR_personal-page-sidebar"
-      >
+      <q-drawer :value="showSidebar" side="left" bordered content-class="IHR_personal-page-sidebar">
         <h3>{{ $t("personalPage.title") }}</h3>
         <div>
-          <router-link
-            :to="{ name: 'personal_page', hash: '#profile' }"
-            class="IHR_delikify"
-            >{{ $t("personalPage.personaInfo") }}</router-link
-          >
+          <router-link :to="{ name: 'personal_page', hash: '#profile' }" class="IHR_delikify">{{
+            $t("personalPage.personaInfo") }}</router-link>
         </div>
         <div>
-          <router-link
-            :to="{ name: 'personal_page', hash: '#settings' }"
-            class="IHR_delikify"
-            >{{ $t("personalPage.settings") }}</router-link
-          >
+          <router-link :to="{ name: 'personal_page', hash: '#settings' }" class="IHR_delikify">{{
+            $t("personalPage.settings") }}</router-link>
         </div>
       </q-drawer>
       <div id="IHR_personal-page">
@@ -45,77 +25,39 @@
           <h2>{{ $t("personalPage.personaInfo") }}</h2>
           <div v-show="toSave !== false">
             <label>{{ $t("personalPage.definitiveConfirm") }}</label>
-            <confirm-element
-              :value="false"
-              :related-input="toSave"
-              @save="submit"
-              @restore="reset"
-            />
+            <confirm-element :value="false" :related-input="toSave" @save="submit" @restore="reset" />
           </div>
           <div>
             <label for="email" class="IHR_label">email</label>
-            <q-input
-              v-model="email.content"
-              name="email"
-              type="email"
-              :readonly="email.readonly"
-              :input-class="emailClass"
-              :borderlessy="email.readonly"
-            />
-            <confirm-element
-              v-model="email.readonly"
-              :related-input="email.content"
-              @save="activeSave({ email: email.content })"
-              :restore.sync="email.content"
-            />
+            <q-input v-model="email.content" name="email" type="email" :readonly="email.readonly"
+              :input-class="emailClass" :borderlessy="email.readonly" />
+            <confirm-element v-model="email.readonly" :related-input="email.content"
+              @save="activeSave({ email: email.content })" :restore.sync="email.content" />
           </div>
-          <password-confirm
-            v-model="password.content"
-            :read-only="password.readonly"
-            :borderlessy="password.readonly"
-            ref="password"
-          >
-            <confirm-element
-              v-model="password.readonly"
-              :related-input="password.content"
-              @save="
-                $refs['password'].isValid()
-                  ? activeSave({ password: password.content })
-                  : (password.readonly = false)
-              "
-              @restore="$refs['password'].resetValidation(password.content)"
-            />
+          <password-confirm v-model="password.content" :read-only="password.readonly" :borderlessy="password.readonly"
+            ref="password">
+            <confirm-element v-model="password.readonly" :related-input="password.content" @save="
+              $refs['password'].isValid()
+                ? activeSave({ password: password.content })
+                : (password.readonly = false)
+            " @restore="$refs['password'].resetValidation(password.content)" />
           </password-confirm>
         </div>
         <div id="settings">
           <h2>{{ $t("personalPage.settings") }}</h2>
           <p>{{ $t("personalPage.settingInstruction") }}</p>
           <div class="row">
-            <q-table
-              :title="$t('personalPage.monitoredAs')"
-              :data="monitoring.query.monitoredAsn"
-              :columns="monitoring.columns"
-              row-key="asnumber"
-              selection="multiple"
-              :selected.sync="monitoring.selected"
-              class="IHR_settings-table col-9"
-            >
+            <q-table :title="$t('personalPage.monitoredAs')" :data="monitoring.query.monitoredAsn"
+              :columns="monitoring.columns" row-key="asnumber" selection="multiple" :selected.sync="monitoring.selected"
+              class="IHR_settings-table col-9">
               <template v-slot:top-right>
                 <div class="q-gutter-xs row items-center">
-                  <q-btn
-                    color="negative"
-                    v-show="monitoring.selected.length > 0"
-                    @click="removeMonitored"
-                    >{{ $t("personalPage.removeSelected") }}</q-btn
-                  >
+                  <q-btn color="negative" v-show="monitoring.selected.length > 0" @click="removeMonitored">{{
+                    $t("personalPage.removeSelected") }}</q-btn>
                   <span class="IHR_label">{{ $t("personalPage.addAs") }}</span>
                   <network-search-bar>
                     <template v-slot:default="elem">
-                      <q-btn
-                        @click="addAsn(elem.asn)"
-                        flat
-                        class="IHR_asn-element"
-                      >
+                      <q-btn @click="addAsn(elem.asn)" flat class="IHR_asn-element">
                         <q-item-section side>{{
                           elem.asn.number | ihr_NumberToAsOrIxp
                         }}</q-item-section>
@@ -133,15 +75,12 @@
                     <q-toggle dense v-model="props.selected" />
                   </q-td>
                   <q-td :props="props" key="asNumber">
-                    <a
-                      @click="
-                        newWindow({
-                          name: 'networks',
-                          params: { asn: getCellValue(props, 'asNumber') }
-                        })
-                      "
-                      href="javascript:void(0)"
-                    >
+                    <a @click="
+                      newWindow({
+                        name: 'networks',
+                        params: { asn: getCellValue(props, 'asNumber') }
+                      })
+                    " href="javascript:void(0)">
                       {{ getCellValue(props, "asNumber") }}
                     </a>
                   </q-td>
@@ -152,18 +91,12 @@
               </template>
             </q-table>
             <div class="col-3" id="IHR_monitored-as-panel">
-              <q-btn-toggle
-                :value="monitoring.globalLevel"
-                @input="
-                  monitoring.globalLevel = $event;
-                  monitoring.query.setGlobalLevel($event);
-                "
-                :toggle-color="nofifyLevelColor"
-                :toggle-text-color="
-                  nofifyLevelColor == 'warning' ? 'black' : 'white'
-                "
-                :options="monitoring.levelOption"
-              />
+              <q-btn-toggle :value="monitoring.globalLevel" @input="
+                monitoring.globalLevel = $event;
+              monitoring.query.setGlobalLevel($event);
+                                " :toggle-color="nofifyLevelColor" :toggle-text-color="
+                    nofifyLevelColor == 'warning' ? 'black' : 'white'
+                  " :options="monitoring.levelOption" />
               <div class="IHR_info-level shadow-1">{{ explaination }}</div>
               <div class="q-gutter-sm" v-show="monitoring.query.modified">
                 <q-btn color="positive" @click="saveMonitoring">{{
@@ -182,8 +115,8 @@
 </template>
 
 <script>
-import NetworkSearchBar from "@/components/search_bar/NetworkSearchBar";
 import PasswordConfirm from "@/components/forms/PasswordConfirm";
+import NetworkSearchBar from "@/components/search_bar/NetworkSearchBar";
 import { MonitoringUserQuery } from "@/plugins/IhrApi";
 
 const ConfirmElement = {

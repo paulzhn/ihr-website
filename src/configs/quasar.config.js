@@ -4,6 +4,7 @@ import 'swagger-ui/dist/swagger-ui.css'
 import '@/styles/quasar.styl'
 import 'quasar/dist/quasar.ie.polyfills'
 import {
+  QDialog,
   Quasar,
   QLayout,
   QHeader,
@@ -66,6 +67,7 @@ import {
 
 Vue.use(Quasar, {
   components: {
+    QDialog,
     QLayout,
     QHeader,
     QFooter,

@@ -5,33 +5,34 @@
 import axios from 'axios'
 import {
   AS_FAMILY,
-  QueryBase,
-  Query,
-  NetworkQuery,
   CountryQuery,
+  DelayAlarmsQuery,
+  DelayQuery,
   DiscoEventQuery,
   DiscoProbesQuery,
-  HegemonyQuery,
-  HegemonyCountryQuery,
-  HegemonyPrefixQuery,
+  ForwardingAlarmsQuery,
+  ForwardingQuery,
   HegemonyAlarmsQuery,
   HegemonyConeQuery,
-  ForwardingQuery,
-  DelayQuery,
-  DelayAlarmsQuery,
-  ForwardingAlarmsQuery,
-  NetworkDelayQuery,
+  HegemonyCountryQuery,
+  HegemonyPrefixQuery,
+  HegemonyQuery,
+  MetisAtlasDeploymentQuery,
+  MetisAtlasSelectionQuery,
   NetworkDelayAlarmsQuery,
   NetworkDelayLocation,
-  MetisAtlasSelectionQuery,
-  MetisAtlasDeploymentQuery,
+  NetworkDelayQuery,
+  NetworkQuery,
+  Query,
+  QueryBase,
 } from './query/IhrQuery'
 import { MonitoringUserQuery } from './query/IhrUserQuery'
 
 // Const section
 
 /// Base url for api
-const IHR_API_BASE = 'https://ihr.iijlab.net/ihr/api/'
+// const IHR_API_BASE = 'https://ihr.iijlab.net/ihr/api/'
+const IHR_API_BASE = 'http://localhost:8000'
 /// Default timeout before api call are considered failed
 const DEFAULT_TIMEOUT = 180000
 /// Data of the first available data
